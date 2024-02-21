@@ -1,0 +1,12 @@
+<button onclick="btn()">Fetch Definition</button>
+
+<script>
+    function btn() {
+        const word = "dog"; // Define the word to look up
+        const api_url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+        fetch(api_url)
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error fetching definition:', error));
+    }
+</script>

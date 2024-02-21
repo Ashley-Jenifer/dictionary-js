@@ -11,41 +11,32 @@ const handleclick = async () => {
         alert("Please enter a valid word containing only alphabets.");
         return;
     } else {
-        try {
-            
-            result.textContent = "Loading...";
-            setTimeout(async () => {
-                try {
-                    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
-                    const data = await response.json();
+        result.textContent = "Loading...";
+        setTimeout(async () => {
+            try {
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
+                const data = await response.json();
 
-               
-                    if (data.title && data.title === "No Definitions Found") {
-                        result.textContent = "No definitions found for the word.";
-                    } else {
-                        
-                        const firstMeaning = data[0].meanings[0];
-                        const partOfSpeech = firstMeaning.partOfSpeech;
-                        const definition = firstMeaning.definitions[0].definition;
-                        result.textContent = `${input}: ${partOfSpeech} - ${definition}`;
-                    }
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                    result.textContent = "Error fetching data. Please try again later.";
+                if (data.title && data.title === "No Definitions Found") {
+                    result.textContent = "No definitions found for the word.";
+                } else {    
+                    const firstMeaning = data[0].meanings[0];
+                    console.log(firstMeaning)
+                    const partOfSpeech = firstMeaning.partOfSpeech;
+                    const definition1 = firstMeaning.definitions[0].definition;
+                    const definition2 = firstMeaning.definitions[1].definition
+                    result.textContent = `${input}: ${partOfSpeech} - ${definition1}\n${definition2}`;
                 }
-            }, 2000); 
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            result.textContent = "Error fetching data. Please try again later.";
-        }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                result.textContent = "Error fetching data. Please try again later.";
+            }
+        }, 2000); 
     }
 };
 
 const handledelete = () => {
     var input = document.getElementById("input");
-   
     input.value = "";
     result.textContent = "Result";
 };
-
-
