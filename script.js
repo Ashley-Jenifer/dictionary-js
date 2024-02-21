@@ -24,7 +24,7 @@ const handleclick = async () => {
                 const firstMeaning = data[0].meanings[0];
                 const partOfSpeech = firstMeaning.partOfSpeech;
                 const definition = firstMeaning.definitions[0].definition;
-                result.textContent = `${input}: ${partOfSpeech}
+                result.textContent = `${input}: ${partOfSpeech} -
                  ${definition}`;
             }
         } catch (error) {
